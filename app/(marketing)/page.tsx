@@ -6,19 +6,10 @@ This server page is the marketing homepage.
 
 "use server"
 
-import { FeaturesSection } from "@/components/landing/features"
-import { HeroSection } from "@/components/landing/hero"
-
 export default async function HomePage() {
   return (
-    <div className="pb-20">
-      <HeroSection />
-      {/* social proof */}
-      <FeaturesSection />
-      {/* pricing */}
-      {/* faq */}
-      {/* blog */}
-      {/* footer */}
+    <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center pb-20">
+      <h1 className="text-6xl font-bold tracking-tight">Dartio</h1>
     </div>
   )
 }

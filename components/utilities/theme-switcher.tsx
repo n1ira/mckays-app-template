@@ -9,7 +9,7 @@ This client component provides a theme switcher for the app.
 import { cn } from "@/lib/utils"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { HTMLAttributes, ReactNode } from "react"
+import { HTMLAttributes, ReactNode, useEffect, useState } from "react"
 
 interface ThemeSwitcherProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode
@@ -17,10 +17,26 @@ interface ThemeSwitcherProps extends HTMLAttributes<HTMLDivElement> {
 
 export const ThemeSwitcher = ({ children, ...props }: ThemeSwitcherProps) => {
   const { setTheme, theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // Only render the icon after component has mounted on the client
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleChange = (theme: "dark" | "light") => {
     localStorage.setItem("theme", theme)
     setTheme(theme)
+  }
+
+  // Render a placeholder with the same dimensions during SSR to avoid layout shift
+  if (!mounted) {
+    return (
+      <div
+        className={cn("p-1", props.className)}
+        style={{ width: 24, height: 24 }}
+      />
+    )
   }
 
   return (

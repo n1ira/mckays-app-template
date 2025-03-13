@@ -25,8 +25,6 @@ const navLinks = [
   { href: "/contact", label: "Contact" }
 ]
 
-const signedInLinks = [{ href: "/todo", label: "Todo" }]
-
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -56,7 +54,7 @@ export default function Header() {
         <div className="flex items-center space-x-2 hover:cursor-pointer hover:opacity-80">
           <Rocket className="size-6" />
           <Link href="/" className="text-xl font-bold">
-            Mckay's App Template
+            Dartio
           </Link>
         </div>
 
@@ -72,15 +70,7 @@ export default function Header() {
           ))}
 
           <SignedIn>
-            {signedInLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-full px-3 py-1 hover:opacity-80"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Signed in links can be added here in the future */}
           </SignedIn>
         </nav>
 
@@ -142,17 +132,7 @@ export default function Header() {
               </li>
             ))}
             <SignedIn>
-              {signedInLinks.map(link => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="block hover:underline"
-                    onClick={toggleMenu}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {/* Signed in links can be added here in the future */}
             </SignedIn>
           </ul>
         </nav>

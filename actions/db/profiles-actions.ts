@@ -6,7 +6,7 @@ Contains server actions related to profiles in the DB.
 
 "use server"
 
-import { db } from "@/db/db"
+import { getDB } from "@/db/db"
 import {
   InsertProfile,
   profilesTable,
@@ -19,6 +19,7 @@ export async function createProfileAction(
   data: InsertProfile
 ): Promise<ActionState<SelectProfile>> {
   try {
+    const db = getDB()
     const [newProfile] = await db.insert(profilesTable).values(data).returning()
     return {
       isSuccess: true,
@@ -35,6 +36,7 @@ export async function getProfileByUserIdAction(
   userId: string
 ): Promise<ActionState<SelectProfile>> {
   try {
+    const db = getDB()
     const profile = await db.query.profiles.findFirst({
       where: eq(profilesTable.userId, userId)
     })
@@ -58,6 +60,7 @@ export async function updateProfileAction(
   data: Partial<InsertProfile>
 ): Promise<ActionState<SelectProfile>> {
   try {
+    const db = getDB()
     const [updatedProfile] = await db
       .update(profilesTable)
       .set(data)
@@ -84,6 +87,7 @@ export async function updateProfileByStripeCustomerIdAction(
   data: Partial<InsertProfile>
 ): Promise<ActionState<SelectProfile>> {
   try {
+    const db = getDB()
     const [updatedProfile] = await db
       .update(profilesTable)
       .set(data)
@@ -115,6 +119,7 @@ export async function deleteProfileAction(
   userId: string
 ): Promise<ActionState<void>> {
   try {
+    const db = getDB()
     await db.delete(profilesTable).where(eq(profilesTable.userId, userId))
     return {
       isSuccess: true,
